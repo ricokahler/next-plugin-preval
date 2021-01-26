@@ -7,13 +7,13 @@
 ### Install
 
 ```
-yarn add next-plugin-preval
+yarn add next-plugin-preval@alpha
 ```
 
 or
 
 ```
-npm i next-plugin-preval
+npm i next-plugin-preval@alpha
 ```
 
 ### Add to next.config.js
