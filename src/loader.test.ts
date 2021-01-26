@@ -19,7 +19,7 @@ describe('_prevalLoader', () => {
     );
 
     expect(result).toMatchInlineSnapshot(
-      `"module.exports = JSON.parse('{\\"hello\\":\\"world\\"}')"`
+      `"module.exports = JSON.parse(\\"{\\\\\\"hello\\\\\\":\\\\\\"world\\\\\\"}\\")"`
     );
   });
 
@@ -45,7 +45,7 @@ describe('_prevalLoader', () => {
     );
 
     expect(result).toMatchInlineSnapshot(
-      `"module.exports = JSON.parse('{\\"hello\\":\\"world\\"}')"`
+      `"module.exports = JSON.parse(\\"{\\\\\\"hello\\\\\\":\\\\\\"world\\\\\\"}\\")"`
     );
   });
 
@@ -71,7 +71,7 @@ describe('_prevalLoader', () => {
     );
 
     expect(result).toMatchInlineSnapshot(
-      `"module.exports = JSON.parse('{\\"hello\\":\\"world\\"}')"`
+      `"module.exports = JSON.parse(\\"{\\\\\\"hello\\\\\\":\\\\\\"world\\\\\\"}\\")"`
     );
   });
 
@@ -141,7 +141,7 @@ describe('loader', () => {
     const callback = (err: Error, result: string) => {
       expect(err).toBe(null);
       expect(result).toMatchInlineSnapshot(
-        `"module.exports = JSON.parse('{\\"hello\\":\\"world\\"}')"`
+        `"module.exports = JSON.parse(\\"{\\\\\\"hello\\\\\\":\\\\\\"world\\\\\\"}\\")"`
       );
       done();
     };

@@ -116,7 +116,12 @@ export async function _prevalLoader(
 
   isSerializable(resource, data);
 
-  return `module.exports = JSON.parse('${JSON.stringify(data)}')`;
+  // NOTE we wrap in JSON.parse because that's faster for JS engines to parse
+  // over javascript. see here https://v8.dev/blog/cost-of-javascript-2019#json
+  //
+  // We wrap in JSON.stringify twice. Once for a JSON string and once again for
+  // a JSON string that can be embeddable in javascript.
+  return `module.exports = JSON.parse(${JSON.stringify(JSON.stringify(data))})`;
 }
 
 const loader: webpack.loader.Loader = function (content) {
