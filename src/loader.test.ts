@@ -95,9 +95,10 @@ describe('_prevalLoader', () => {
       );
     } catch (e) {
       caught = true;
-      expect(e).toMatchInlineSnapshot(`
-        [Error: Error serializing \`.data.hello\` returned from \`preval\` in "/Users/ricokahler/workspace/next-plugin-preval/src/example.ts".
-        Reason: \`undefined\` cannot be serialized as JSON. Please use \`null\` or omit this value.]
+      expect(e.message.replace(/"[^"]+"/g, '"FILENAME"'))
+        .toMatchInlineSnapshot(`
+        "Error serializing \`.data.hello\` returned from \`preval\` in \\"FILENAME\\".
+        Reason: \`undefined\` cannot be serialized as JSON. Please use \`null\` or omit this value."
       `);
     }
 
@@ -120,8 +121,8 @@ describe('_prevalLoader', () => {
       );
     } catch (e) {
       caught = true;
-      expect(e).toMatchInlineSnapshot(
-        `[Error: Failed to pre-evaluate "/Users/ricokahler/workspace/next-plugin-preval/src/example.ts". Error: No default export. Did you forget to \`export default\`?]`
+      expect(e.message.replace(/"[^"]+"/g, '"FILENAME"')).toMatchInlineSnapshot(
+        `"Failed to pre-evaluate \\"FILENAME\\". Error: No default export. Did you forget to \`export default\`?"`
       );
     }
 

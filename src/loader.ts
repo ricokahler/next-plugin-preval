@@ -20,7 +20,7 @@ const defaultExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 export async function _prevalLoader(
   content: string,
   resource: string,
-  options: PrevalLoaderOptions,
+  options: PrevalLoaderOptions
 ) {
   const { extensions = defaultExtensions } = options;
 
@@ -33,7 +33,7 @@ export async function _prevalLoader(
     configLoaderSuccessResult &&
     createMatchPath(
       configLoaderSuccessResult.absoluteBaseUrl,
-      configLoaderSuccessResult.paths,
+      configLoaderSuccessResult.paths
     );
 
   const moduleResolver =
@@ -55,6 +55,7 @@ export async function _prevalLoader(
   const hook = (code: string, filename?: string) => {
     const result = transform(code, {
       filename: filename || 'preval-file.ts',
+      presets: ['next/babel'],
       plugins: [
         // conditionally add
         ...(moduleResolver ? [moduleResolver] : []),
@@ -63,7 +64,7 @@ export async function _prevalLoader(
 
     if (!result?.code) {
       throw new PrevalError(
-        `Could not get babel file result ${filename ? `for ${filename}` : ''} `,
+        `Could not get babel file result ${filename ? `for ${filename}` : ''} `
       );
     }
 
@@ -74,13 +75,12 @@ export async function _prevalLoader(
 
   const data = await (async () => {
     try {
-      const mod = requireFromString(
-        hook(content),
-        `${resource}.preval-run.js`,
-      );
+      const mod = requireFromString(hook(content), `${resource}.preval-run.js`);
 
       if (!mod.default) {
-        throw new PrevalError('No default export. Did you forget to `export default`?')
+        throw new PrevalError(
+          'No default export. Did you forget to `export default`?'
+        );
       }
 
       return await mod.default;
