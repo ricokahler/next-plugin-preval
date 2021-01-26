@@ -7,7 +7,7 @@ import { transform } from '@babel/core';
 import { addHook } from 'pirates';
 import { getOptions } from 'loader-utils';
 import { createMatchPath, loadConfig } from 'tsconfig-paths';
-import { isSerializableProps } from './is-serializable-props';
+import isSerializable from './is-serializable';
 
 class PrevalError extends Error {}
 
@@ -61,10 +61,7 @@ export async function _prevalLoader(
       `require('regenerator-runtime/runtime');\n${code}`,
       {
         filename: filename || 'preval-file.ts',
-        presets: [
-          ['@babel/preset-env', { targets: 'node 10' }],
-          'next/babel',
-        ],
+        presets: [['@babel/preset-env', { targets: 'node 10' }], 'next/babel'],
         plugins: [
           // conditionally add
           ...(moduleResolver ? [moduleResolver] : []),
@@ -101,7 +98,7 @@ export async function _prevalLoader(
     }
   })();
 
-  isSerializableProps(resource, 'preval', data);
+  isSerializable(resource, data);
 
   return `module.exports = JSON.parse('${JSON.stringify(data)}')`;
 }
