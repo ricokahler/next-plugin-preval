@@ -16,5 +16,6 @@
       "next-plugin-preval": ["./src"]
     }
   },
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts"],
+  "include": ["src/**/*"]
 }

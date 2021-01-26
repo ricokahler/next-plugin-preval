@@ -1,0 +1,14 @@
+.github
+coverage
+dist
+node_modules
+scripts
+src
+.babelrc
+.env
+.gitignore
+.prettierrc
+.releaserc.json
+jest.config.js
+package-lock.json
+tsconfig.json
