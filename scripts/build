@@ -15,5 +15,3 @@ npx tsc
 
 echo Copying files…
 cp ./src/index.d.ts ./dist
-cp ./package.json ./dist
-cp ./README.md ./dist
