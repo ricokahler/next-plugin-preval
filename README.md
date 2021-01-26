@@ -19,6 +19,7 @@ npm i next-plugin-preval@alpha
 ### Add to next.config.js
 
 ```js
+// next.config.js
 const createNextPluginPreval = require('next-plugin-preval/config');
 const withNextPluginPreval = createNextPluginPreval();
 
@@ -27,7 +28,7 @@ module.exports = withNextPluginPreval(/* optionally add a next.js config */);
 
 ## Usage
 
-Create a file with the extension `.preval.ts` or `preval.js`.
+Create a file with the extension `.preval.ts` or `.preval.js`.
 
 ```js
 // my-data.preval.js
@@ -43,6 +44,7 @@ export default preval(getData());
 Then import that file anywhere:
 
 ```js
+// component.js (or any file)
 import myData from './my-data.preval';
 
 function Component() {
@@ -58,8 +60,8 @@ export default Component;
 
 ## Important notes
 
-This works via a webpack loader that take your code, compiles it, and runs it inside of Node.js.
+This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
 
-- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode) or even during dynamic SSR. Once this data is generated during the initial build, it can't change. It's similar to importing JSON.
-- Because this plugin runs code directly in Node.js, code is not executed in a typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. For most data queries this shouldn't cause any different. Feel free to [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
+- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode) or even during dynamic SSR. Once this data is generated during the initial build, it can't change. It's like importing JSON.
+- Because this plugin runs code directly in Node.js, code is not executed in the typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. For most data queries this shouldn't make a difference. Feel free to [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
 - **⚠️ Environment variables in this context do not respect the `NEXT_PUBLIC_` convention.** If you import a preval'ed file into your frontend build, you could be importing a secret. This is rare because you'd have to include the secret in the data you're returning but it's important to be aware of.
