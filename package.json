@@ -7,7 +7,7 @@
     "test": "jest",
     "semantic-release": "semantic-release",
     "build": "./scripts/build",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "next",
