@@ -44,7 +44,11 @@ export async function _prevalLoader(
         extensions,
         resolvePath: (sourcePath: string, currentFile: string, opts: any) => {
           if (matchPath) {
-            return matchPath(sourcePath, require, fs.existsSync, extensions);
+            try {
+              return matchPath(sourcePath, require, fs.existsSync, extensions);
+            } catch {
+              return defaultResolvePath(sourcePath, currentFile, opts);
+            }
           }
 
           return defaultResolvePath(sourcePath, currentFile, opts);
@@ -53,14 +57,20 @@ export async function _prevalLoader(
     ] as const);
 
   const hook = (code: string, filename?: string) => {
-    const result = transform(code, {
-      filename: filename || 'preval-file.ts',
-      presets: ['next/babel'],
-      plugins: [
-        // conditionally add
-        ...(moduleResolver ? [moduleResolver] : []),
-      ],
-    });
+    const result = transform(
+      `require('regenerator-runtime/runtime');\n${code}`,
+      {
+        filename: filename || 'preval-file.ts',
+        presets: [
+          ['@babel/preset-env', { targets: 'node 10' }],
+          'next/babel',
+        ],
+        plugins: [
+          // conditionally add
+          ...(moduleResolver ? [moduleResolver] : []),
+        ],
+      }
+    );
 
     if (!result?.code) {
       throw new PrevalError(
