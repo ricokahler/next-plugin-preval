@@ -1,6 +1,5 @@
 .github
 coverage
-dist
 node_modules
 scripts
 src
