@@ -17,6 +17,22 @@ interface PrevalLoaderOptions {
 
 const defaultExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
+const readJson = (filename: string) => {
+  try {
+    return require(filename);
+  } catch {
+    return undefined;
+  }
+};
+
+const fileExists = (filename: string) => {
+  try {
+    return fs.existsSync(filename);
+  } catch {
+    return false;
+  }
+};
+
 export async function _prevalLoader(
   content: string,
   resource: string,
@@ -45,7 +61,7 @@ export async function _prevalLoader(
         resolvePath: (sourcePath: string, currentFile: string, opts: any) => {
           if (matchPath) {
             try {
-              return matchPath(sourcePath, require, fs.existsSync, extensions);
+              return matchPath(sourcePath, readJson, fileExists, extensions);
             } catch {
               return defaultResolvePath(sourcePath, currentFile, opts);
             }
