@@ -17,12 +17,14 @@ See the [recipes](#recipes) for concrete examples.
 ### Install
 
 ```
+# Note: you must install using the `alpha` tag
 yarn add next-plugin-preval@alpha
 ```
 
 or
 
 ```
+# Note: you must install using the `alpha` tag
 npm i next-plugin-preval@alpha
 ```
 
