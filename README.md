@@ -7,7 +7,7 @@
 The primary mechanism Next.js provides for static data is `getStaticProps` — which is a great feature and is the right tool for many use cases. However, there are other use cases for static data that are not covered by `getStaticProps`.
 
 - **Site-wide data**: if you have static data that's required across many different pages, `getStaticProps` is a somewhat awkward mechanism because for each new page, you'll have to re-fetch that same static data. For example, if you use `getStaticProps` to fetch content for your header, that data will be re-fetched on every page change.
-- **Static data for API routes**: It's useful to pre-evaluate data fetches in API routes to speed up response times and offload work from your database. `getStaticProps` does not work for API routes while `next-plugin-preval` does.
+- **Static data for API routes**: It can be useful to pre-evaluate data fetches in API routes to speed up response times and offload work from your database. `getStaticProps` does not work for API routes while `next-plugin-preval` does.
 - **De-duped and code split data**: Since `next-plugin-preval` behaves like importing JSON, you can leverage the optimizations bundlers have for importing standard static assets. This includes standard code-splitting and de-duping.
 
 See the [recipes](#recipes) for concrete examples.
@@ -70,7 +70,7 @@ function Component() {
 export default Component;
 ```
 
-## Important notes
+## ⚠️ Important notes
 
 This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
 
