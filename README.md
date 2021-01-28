@@ -74,7 +74,7 @@ export default Component;
 
 This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
 
-- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode) or even during dynamic SSR. Once this data is generated during the initial build, it can't change. It's like importing JSON.
+- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode), during dynamic SSR, or even [ISR](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration). Once this data is generated during the initial build, it can't change. It's like importing JSON.
 - Because this plugin runs code directly in Node.js, code is not executed in the typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. For most data queries this shouldn't make a difference. Feel free to [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
 
 ## Recipes
@@ -189,3 +189,7 @@ function StatePicker({ value, onChange }) {
   );
 }
 ```
+
+## Related Projects
+
+- [`next-data-hooks`](https://github.com/ricokahler/next-data-hooks) — creates a pattern to use `getStaticProps` as React hooks. Great for the side-wide data case when preview mode or ISR is needed.
