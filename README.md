@@ -1,4 +1,4 @@
-# next-plugin-preval · [![codecov](https://codecov.io/gh/ricokahler/next-plugin-preval/branch/alpha/graph/badge.svg?token=ZMYB4EW4SH)](https://codecov.io/gh/ricokahler/next-plugin-preval) [![github status checks](https://badgen.net/github/checks/ricokahler/next-plugin-preval/alpha)](https://github.com/ricokahler/next-plugin-preval/actions)
+# next-plugin-preval · [![codecov](https://codecov.io/gh/ricokahler/next-plugin-preval/branch/alpha/graph/badge.svg?token=ZMYB4EW4SH)](https://codecov.io/gh/ricokahler/next-plugin-preval) [![github status checks](https://badgen.net/github/checks/ricokahler/next-plugin-preval/alpha)](https://github.com/ricokahler/next-plugin-preval/actions) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 > Pre-evaluate async functions (for data fetches) at build time and import them like JSON
 
