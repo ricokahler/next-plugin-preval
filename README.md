@@ -192,4 +192,4 @@ function StatePicker({ value, onChange }) {
 
 ## Related Projects
 
-- [`next-data-hooks`](https://github.com/ricokahler/next-data-hooks) — creates a pattern to use `getStaticProps` as React hooks. Great for the side-wide data case when preview mode or ISR is needed.
+- [`next-data-hooks`](https://github.com/ricokahler/next-data-hooks) — creates a pattern to use `getStaticProps` as React hooks. Great for the site-wide data case when preview mode or ISR is needed.
