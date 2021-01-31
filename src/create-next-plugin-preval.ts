@@ -7,8 +7,16 @@ interface WebpackConfig {
   [key: string]: any;
 }
 
+interface WebpackOptions {
+  buildId: string;
+  dev: boolean;
+  isServer: boolean;
+  defaultLoaders: object;
+  babel: object;
+}
+
 interface NextConfigValue {
-  webpack?: (config: WebpackConfig) => WebpackConfig;
+  webpack?: (config: WebpackConfig, options: WebpackOptions) => WebpackConfig;
   [key: string]: any;
 }
 
@@ -24,8 +32,8 @@ function createNextPluginPreval(options: NextPluginPrevalOptions) {
 
       return {
         ...nextConfig,
-        webpack: (config: WebpackConfig) => {
-          const webpackConfig = nextConfig.webpack?.(config) || {};
+        webpack: (config: WebpackConfig, options: WebpackOptions) => {
+          const webpackConfig = nextConfig.webpack?.(config, options) || {};
 
           const rules = webpackConfig.module?.rules;
 
