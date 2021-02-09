@@ -58,7 +58,7 @@ Then import that file anywhere:
 
 ```js
 // component.js (or any file)
-import myData from './my-data.preval';
+import myData from './my-data.preval'; // 👈 this is effectly like importing JSON
 
 function Component() {
   return (
