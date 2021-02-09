@@ -71,6 +71,8 @@ function Component() {
 export default Component;
 ```
 
+When you import a `.preval` file, it's like you're importing JSON. `next-plugin-preval` will run your function during the build and inline a JSON blob as a module.
+
 ## ⚠️ Important notes
 
 This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
