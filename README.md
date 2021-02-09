@@ -41,7 +41,7 @@ module.exports = withNextPluginPreval(/* optionally add a next.js config */);
 
 ## Usage
 
-Create a file with the extension `.preval.ts` or `.preval.js`.
+Create a file with the extension `.preval.ts` or `.preval.js` then export a promise wrapped in `preval()`.
 
 ```js
 // my-data.preval.js
@@ -54,7 +54,7 @@ async function getData() {
 export default preval(getData());
 ```
 
-Then import that file anywhere:
+Then import that file anywhere. The result of the promise is returned.
 
 ```js
 // component.js (or any file)
