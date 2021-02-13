@@ -1,4 +1,6 @@
-export interface NextPluginPrevalOptions {}
+interface NextPluginPrevalOptions {
+  // just a placeholder for now
+}
 
 interface WebpackConfig {
   module?: {
@@ -22,24 +24,23 @@ interface NextConfigValue {
 
 type NextConfig = NextConfigValue | ((...args: any[]) => NextConfigValue);
 
-function createNextPluginPreval(options: NextPluginPrevalOptions) {
+function createNextPluginPreval(_options?: NextPluginPrevalOptions) {
   function withNextPluginPreval(_nextConfig?: NextConfig) {
     const normalizedNextConfig =
       typeof _nextConfig === 'function' ? _nextConfig : () => _nextConfig || {};
 
-    return (...args: any[]) => {
+    return (...args: any[]): NextConfigValue => {
       const nextConfig = normalizedNextConfig(...args);
 
       return {
         ...nextConfig,
         webpack: (config: WebpackConfig, options: WebpackOptions) => {
-          const webpackConfig = nextConfig.webpack?.(config, options) || {};
-
+          const webpackConfig = nextConfig.webpack?.(config, options) || config;
           const rules = webpackConfig.module?.rules;
 
           if (!rules) {
             throw new Error(
-              'Next Plugin Preval could not find webpack rules. This may be an unsupported version of Next.js.'
+              'Next Plugin Preval could not find webpack rules. Please file an issue.'
             );
           }
 
