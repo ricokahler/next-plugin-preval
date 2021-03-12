@@ -2,6 +2,44 @@
 
 > Pre-evaluate async functions (for data fetches) at build time and import them like JSON
 
+```js
+// data.preval.js (or data.preval.ts)
+
+// step 1: create a data.preval.js (or data.preval.ts) file
+import preval from 'next-plugin-preval';
+import db from 'your-db';
+
+// step 2: write an async function that fetches your data
+async function getData() {
+  const { title, body } = await db.getData('...');
+  return { title, body };
+}
+
+// step 3: export default and wrap with `preval()`
+export default preval(getData());
+```
+
+```js
+// Component.js (or Component.ts)
+
+// step 4: import the preval
+import data from './data.preval';
+
+// step 5: use the data. (it's there synchronously from the build step!)
+const { title, body } = data;
+
+function Component() {
+  return (
+    <>
+      <h1>{title}</h1>
+      <p>{body}</p>
+    </>
+  );
+}
+
+export default Component;
+```
+
 ## Why?
 
 The primary mechanism Next.js provides for static data is `getStaticProps` — which is a great feature and is the right tool for many use cases. However, there are other use cases for static data that are not covered by `getStaticProps`.
