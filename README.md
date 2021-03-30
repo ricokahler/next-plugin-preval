@@ -96,7 +96,7 @@ Then import that file anywhere. The result of the promise is returned.
 
 ```js
 // component.js (or any file)
-import myData from './my-data.preval'; // 👈 this is effectly like importing JSON
+import myData from './my-data.preval'; // 👈 this is effectively like importing JSON
 
 function Component() {
   return (
