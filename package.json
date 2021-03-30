@@ -1,6 +1,6 @@
 {
   "name": "next-plugin-preval",
-  "version": "0.0.0-development",
+  "version": "0.0.0",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
