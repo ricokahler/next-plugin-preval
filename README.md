@@ -7,11 +7,10 @@
 
 // step 1: create a data.preval.js (or data.preval.ts) file
 import preval from 'next-plugin-preval';
-import db from 'your-db';
 
 // step 2: write an async function that fetches your data
 async function getData() {
-  const { title, body } = await db.getData('...');
+  const { title, body } = await /* your data fetching function */;
   return { title, body };
 }
 
@@ -123,10 +122,9 @@ This works via a webpack loader that takes your code, compiles it, and runs it i
 ```js
 // header-data.preval.js
 import preval from 'next-plugin-preval';
-import db from 'your-db';
 
 async function getHeaderData() {
-  const headerData = await db.query(/* query for header data */);
+  const headerData = await /* your data fetching function */;
 
   return headerData;
 }
@@ -151,10 +149,9 @@ export default Header;
 ```js
 // products.preval.js
 import preval from 'next-plugin-preval';
-import db from 'your-db';
 
 async function getProducts() {
-  const products = await db.query(/* query for products */);
+  const products = await /* your data fetching function */;
 
   // create a hash-map for O(1) lookups
   return products.reduce((productsById, product) => {
@@ -191,10 +188,9 @@ export default handler;
 ```js
 // states.preval.js
 import preval from 'next-plugin-preval';
-import db from 'your-db';
 
 async function getAvailableStates() {
-  const states = await db.query(/* query for states */);
+  const states = await /* your data fetching function */;
   return states;
 }
 
