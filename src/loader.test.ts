@@ -133,7 +133,7 @@ describe('_prevalLoader', () => {
 describe('loader', () => {
   it('throws if async is not available', () => {
     expect(() => {
-      loader.call({ async: () => null });
+      loader.call({ async: () => null, cacheable: () => {} });
     }).toThrowErrorMatchingInlineSnapshot(`"Async was not supported."`);
   });
 
@@ -147,7 +147,7 @@ describe('loader', () => {
     };
 
     loader.call(
-      { async: () => callback },
+      { async: () => callback, cacheable: () => {} },
       `
         import preval from 'next-plugin-preval';
 
@@ -167,7 +167,7 @@ describe('loader', () => {
     };
 
     loader.call(
-      { async: () => callback, resource: 'test-resource' },
+      { async: () => callback, resource: 'test-resource', cacheable: () => {} },
       `
         import preval from 'next-plugin-preval';
 
