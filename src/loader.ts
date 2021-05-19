@@ -127,6 +127,8 @@ export async function _prevalLoader(
 const loader: webpack.loader.Loader = function (content) {
   const callback = this.async();
 
+  this.cacheable(false);
+
   if (!callback) {
     throw new PrevalError('Async was not supported.');
   }
