@@ -79,6 +79,13 @@ export async function _prevalLoader(
       ...(moduleResolver ? [moduleResolver] : []),
     ],
     rootMode: 'upward-optional',
+    // TODO: this line may cause performance issues, it makes babel compile
+    // things `node_modules` however this is currently required for setups that
+    // include the use of sym-linked deps as part of workspaces (both yarn and
+    // npm)
+    ignore: [],
+    // disables the warning "Babel has de-optimized the styling of..."
+    compact: true,
     extensions,
   });
 
