@@ -13,3 +13,7 @@ npm i next@latest typescript@latest react@latest react-dom@latest @types/react@l
 
 echo Building example app…
 npx next build
+
+echo Testing that the preval worked…
+../../scripts/download-from-next-server . / | grep hello_world
+../../scripts/download-from-next-server . /api/hello | grep hello_world
