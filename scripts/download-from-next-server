@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+const http = require('http');
+const next = require('next');
+const fetch = require('node-fetch');
+const path = require('path');
+
+const [exampleAppPath, requestPath] = process.argv.slice(2);
+
+const app = next({
+  dev: false,
+  dir: path.resolve(process.cwd(), exampleAppPath),
+});
+const handler = app.getRequestHandler();
+
+async function main() {
+  await app.prepare();
+
+  /** @type {http.Server} */
+  const server = await new Promise((resolve, reject) => {
+    const server = http.createServer(handler).listen(0, (err) => {
+      if (err) reject(err);
+      else resolve(server);
+    });
+  });
+
+  const address = server.address();
+
+  if (typeof address !== 'object' || !address) {
+    throw new Error('Could not get port');
+  }
+
+  const port = address.port;
+
+  const response = await fetch(`http://localhost:${port}${requestPath}`);
+  const text = await response.text();
+
+  console.log(text);
+
+  await new Promise((resolve, reject) =>
+    server.close((err) => {
+      if (err) reject(err);
+      else resolve();
+    })
+  );
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
