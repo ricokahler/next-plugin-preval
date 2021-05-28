@@ -26,8 +26,8 @@ jobs:
       - name: Run tests
         run: npm t -- --coverage
 
-      - name: Run build
-        run: npm run build
+      - name: Build example app
+        run: npm run build-example-app
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1

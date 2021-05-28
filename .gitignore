@@ -3,3 +3,6 @@ coverage
 dist
 .DS_Store
 .env
+/examples/example-app/.next
+/examples/example-app/package.json
+/examples/example-app/package-lock.json
