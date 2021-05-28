@@ -12,10 +12,10 @@
     "emitDeclarationOnly": true,
     "outDir": "./dist",
     "paths": {
-      "@/test-module": ["./src/test-module"],
+      "@/test-module": ["./src/__example-files__/test-module"],
       "next-plugin-preval": ["./src"]
     }
   },
-  "exclude": ["**/*.test.ts"],
+  "exclude": ["**/*.test.ts", "**/*/__example-files__/**/*"],
   "include": ["src/**/*"]
 }
