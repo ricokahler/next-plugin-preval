@@ -1,13 +1,13 @@
 import fs from 'fs';
 import type webpack from 'webpack';
 import requireFromString from 'require-from-string';
-// @ts-ignore
+// @ts-expect-error
 import { resolvePath as defaultResolvePath } from 'babel-plugin-module-resolver';
-import { transform } from '@babel/core';
-import { addHook } from 'pirates';
 import { getOptions } from 'loader-utils';
 import { createMatchPath, loadConfig } from 'tsconfig-paths';
 import isSerializable from './is-serializable';
+// @ts-expect-error
+import register, { revert } from '@babel/register';
 
 class PrevalError extends Error {}
 
@@ -34,7 +34,7 @@ const fileExists = (filename: string) => {
 };
 
 export async function _prevalLoader(
-  content: string,
+  _: string,
   resource: string,
   options: PrevalLoaderOptions
 ) {
@@ -72,33 +72,22 @@ export async function _prevalLoader(
       },
     ] as const);
 
-  const hook = (code: string, filename?: string) => {
-    const result = transform(
-      `require('regenerator-runtime/runtime');\n${code}`,
-      {
-        filename: filename || 'preval-file.ts',
-        presets: [['@babel/preset-env', { targets: 'node 10' }], 'next/babel'],
-        plugins: [
-          // conditionally add
-          ...(moduleResolver ? [moduleResolver] : []),
-        ],
-      }
-    );
-
-    if (!result?.code) {
-      throw new PrevalError(
-        `Could not get babel file result ${filename ? `for ${filename}` : ''} `
-      );
-    }
-
-    return result.code;
-  };
-
-  const revert = addHook(hook, { exts: extensions });
+  register({
+    presets: ['next/babel', ['@babel/preset-env', { targets: 'node 10' }]],
+    plugins: [
+      // conditionally add
+      ...(moduleResolver ? [moduleResolver] : []),
+    ],
+    rootMode: 'upward-optional',
+    extensions,
+  });
 
   const data = await (async () => {
     try {
-      const mod = requireFromString(hook(content), `${resource}.preval-run.js`);
+      const mod = requireFromString(
+        `module.exports = require(${JSON.stringify(resource)})`,
+        `${resource}.preval.js`
+      );
 
       if (!mod.default) {
         throw new PrevalError(
@@ -108,7 +97,12 @@ export async function _prevalLoader(
 
       return await mod.default;
     } catch (e) {
-      throw new PrevalError(`Failed to pre-evaluate "${resource}". ${e}`);
+      // TODO: use the webpack logger. i tried this and it didn't output anything.
+      console.error('[next-plugin-preval]', e.stack);
+
+      throw new PrevalError(
+        `Failed to pre-evaluate "${resource}". ${e} See above for full stack trace.`
+      );
     } finally {
       revert();
     }
@@ -130,10 +124,12 @@ const loader: webpack.loader.Loader = function (content) {
   this.cacheable(false);
 
   if (!callback) {
-    throw new PrevalError('Async was not supported.');
+    throw new PrevalError(
+      'Async was not supported by webpack. Please open an issue in next-plugin-preval.'
+    );
   }
 
-  _prevalLoader(content.toString(), this.resource, getOptions(this))
+  _prevalLoader(content.toString(), this.resourcePath, getOptions(this))
     .then((result) => {
       callback(null, result);
     })
