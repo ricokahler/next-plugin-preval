@@ -4,7 +4,7 @@ rm -rf dist
 
 echo Compiling JS…
 npx babel \
-  --ignore "src/**/*.test.ts","src/**/*.d.ts"\
+  --ignore "src/**/*.test.ts","src/**/*.d.ts","**/*/__example-files__/**/*"\
   --source-maps true \
   --extensions .ts,.js \
   --out-dir dist \

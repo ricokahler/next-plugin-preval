@@ -34,7 +34,7 @@ const fileExists = (filename: string) => {
 };
 
 export async function _prevalLoader(
-  content: string,
+  _: string,
   resource: string,
   options: PrevalLoaderOptions
 ) {
@@ -124,7 +124,9 @@ const loader: webpack.loader.Loader = function (content) {
   this.cacheable(false);
 
   if (!callback) {
-    throw new PrevalError('Async was not supported.');
+    throw new PrevalError(
+      'Async was not supported by webpack. Please open an issue in next-plugin-preval.'
+    );
   }
 
   _prevalLoader(content.toString(), this.resourcePath, getOptions(this))
