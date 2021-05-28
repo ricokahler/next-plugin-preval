@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo Building…
+npm run build
+
+echo Cleaning example app…
+cd ./examples/example-app
+rm -rf node_modules package.json package-lock.json
+
+echo Installing deps…
+npm init -y
+npm i next@latest typescript@latest react@latest react-dom@latest @types/react@latest ../../
+
+echo Building example app…
+npx next build

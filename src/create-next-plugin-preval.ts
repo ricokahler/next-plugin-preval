@@ -46,7 +46,7 @@ function createNextPluginPreval(_options?: NextPluginPrevalOptions) {
 
           rules.push({
             test: /\.preval\.(t|j)sx?$/,
-            loader: require.resolve('next-plugin-preval/loader'),
+            loader: require.resolve('./loader'),
           });
 
           return webpackConfig;
