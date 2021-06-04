@@ -112,6 +112,16 @@ describe('_prevalLoader', () => {
 
     expect(caught).toBe(true);
   });
+
+  it("polyfills fetch (and others) via require('next')", async () => {
+    const result = await _prevalLoader(
+      '',
+      require.resolve('./__example-files__/uses-fetch.preval.ts'),
+      {}
+    );
+
+    expect(result.includes('Example Domain')).toBe(true);
+  });
 });
 
 describe('loader', () => {

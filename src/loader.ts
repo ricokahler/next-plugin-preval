@@ -92,7 +92,9 @@ export async function _prevalLoader(
   const data = await (async () => {
     try {
       const mod = requireFromString(
-        `module.exports = require(${JSON.stringify(resource)})`,
+        `require('next');\nmodule.exports = require(${JSON.stringify(
+          resource
+        )})`,
         `${resource}.preval.js`
       );
 
