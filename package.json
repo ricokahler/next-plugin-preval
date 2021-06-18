@@ -64,6 +64,6 @@
     "typescript": "4.3.2"
   },
   "peerDependencies": {
-    "next": "^9 || ^10"
+    "next": "^9 || ^10 || ^11"
   }
 }
