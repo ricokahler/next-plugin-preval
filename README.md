@@ -112,7 +112,7 @@ When you import a `.preval` file, it's like you're importing JSON. `next-plugin-
 
 This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
 
-- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode), during dynamic SSR, or even [ISR](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration). Once this data is generated during the initial build, it can't change. It's like importing JSON.
+- Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode), during dynamic SSR, or even [ISR](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration). Once this data is generated during the initial build, it can't change. It's like importing JSON. See [this pattern](#supporting-preview-mode) for a work around.
 - Because this plugin runs code directly in Node.js, code is not executed in the typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. We try our best to mock this context via [`require('next')`](https://github.com/ricokahler/next-plugin-preval/issues/12). For most data queries this should be sufficient, however please [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
 
 ## Recipes
