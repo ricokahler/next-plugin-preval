@@ -113,7 +113,7 @@ When you import a `.preval` file, it's like you're importing JSON. `next-plugin-
 This works via a webpack loader that takes your code, compiles it, and runs it inside of Node.js.
 
 - Since this is an optimization at the bundler level, it will not update with Next.js [preview mode](https://nextjs.org/docs/advanced-features/preview-mode), during dynamic SSR, or even [ISR](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration). Once this data is generated during the initial build, it can't change. It's like importing JSON.
-- Because this plugin runs code directly in Node.js, code is not executed in the typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. For most data queries this shouldn't make a difference. Feel free to [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
+- Because this plugin runs code directly in Node.js, code is not executed in the typical Next.js server context. This means certain injections Next.js does at the bundler level will not be available. We try our best to mock this context via [`require('next')`](https://github.com/ricokahler/next-plugin-preval/issues/12). For most data queries this should be sufficient, however please [open an issue](https://github.com/ricokahler/next-plugin-preval/issues/new) if something seems off.
 
 ## Recipes
 
@@ -222,6 +222,42 @@ function StatePicker({ value, onChange }) {
       ))}
     </select>
   );
+}
+```
+
+### Supporting preview mode
+
+As stated in the [notes](#%EF%B8%8F-important-notes), the result of next-plugin-preval won't change after it leaves the build. However, you can still make preview mode work if you extract your data fetching function and conditionally call it based on preview mode (via [`context.preview`](https://nextjs.org/docs/advanced-features/preview-mode#step-2-update-getstaticprops). If preview mode is not active, you can default to the preval file.
+
+```js
+// get-data.js
+
+// 1. extract a data fetching function
+async function getData() {
+  const data = await /* your data fetching function */;
+  return data
+}
+```
+
+```js
+// data.preval.js
+import preval from 'next-plugin-preval';
+import getData from './getData';
+
+// 2. use that data fetching function in the preval
+export default preval(getData());
+```
+
+```js
+// /pages/some-page.js
+import data from './data.preval';
+import getData from './get-data';
+
+export async function getStaticProps(context) {
+  // 3. conditionally call the data fetching function defaulting to the prevalled version
+  const data = context.preview ? await getData() : data;
+  
+  return { props: { data } };
 }
 ```
 
