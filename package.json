@@ -21,6 +21,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "semantic-release": "semantic-release",
     "build": "./scripts/build",
     "lint": "eslint src",
