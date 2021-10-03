@@ -21,6 +21,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "semantic-release": "semantic-release",
     "build": "./scripts/build",
     "lint": "eslint src",
@@ -35,16 +36,15 @@
     "loader-utils": "^2.0.0",
     "regenerator-runtime": "^0.13.7",
     "require-from-string": "^2.0.2",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.9.0",
+    "webpack": "^5.56.0"
   },
   "devDependencies": {
     "@babel/cli": "7.15.7",
     "@babel/preset-typescript": "7.15.0",
     "@types/babel__core": "7.1.16",
     "@types/jest": "26.0.24",
-    "@types/loader-utils": "2.0.3",
     "@types/require-from-string": "1.2.1",
-    "@types/webpack": "5.28.0",
     "@typescript-eslint/eslint-plugin": "4.28.5",
     "@typescript-eslint/parser": "4.28.5",
     "babel-eslint": "10.1.0",

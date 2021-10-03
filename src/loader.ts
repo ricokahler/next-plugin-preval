@@ -17,6 +17,9 @@ interface PrevalLoaderOptions {
 
 const defaultExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
+const isRecord = (something: unknown): something is Record<string, unknown> =>
+  typeof something === 'object' && !!something && !Array.isArray(something);
+
 const readJson = (filename: string) => {
   try {
     return require(filename);
@@ -106,8 +109,10 @@ export async function _prevalLoader(
 
       return await mod.default;
     } catch (e) {
-      // TODO: use the webpack logger. i tried this and it didn't output anything.
-      console.error('[next-plugin-preval]', e.stack);
+      if (isRecord(e) && 'stack' in e) {
+        // TODO: use the webpack logger. i tried this and it didn't output anything.
+        console.error('[next-plugin-preval]', e.stack);
+      }
 
       throw new PrevalError(
         `Failed to pre-evaluate "${resource}". ${e} See above for full stack trace.`
@@ -127,7 +132,10 @@ export async function _prevalLoader(
   return `module.exports = JSON.parse(${JSON.stringify(JSON.stringify(data))})`;
 }
 
-const loader: webpack.loader.Loader = function (content) {
+const loader = function (
+  this: webpack.LoaderContext<PrevalLoaderOptions>,
+  content: string
+) {
   const callback = this.async();
 
   this.cacheable(false);
