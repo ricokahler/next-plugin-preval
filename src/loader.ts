@@ -76,7 +76,7 @@ export async function _prevalLoader(
     ] as const);
 
   register({
-    presets: ['next/babel', ['@babel/preset-env', { targets: 'node 10' }]],
+    presets: ['next/babel', ['@babel/preset-env', { targets: 'node 12' }]],
     plugins: [
       // conditionally add
       ...(moduleResolver ? [moduleResolver] : []),
