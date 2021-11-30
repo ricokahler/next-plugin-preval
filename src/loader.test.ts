@@ -128,7 +128,11 @@ describe('loader', () => {
   it('throws if async is not available', () => {
     let caught = false;
     try {
-      loader.call({ async: () => null, cacheable: () => {} });
+      loader.call({
+        async: () => null,
+        cacheable: jest.fn(),
+        addDependency: jest.fn(),
+      });
     } catch (e) {
       caught = true;
       expect(e.message).toBe(
@@ -151,7 +155,8 @@ describe('loader', () => {
     loader.call(
       {
         async: () => callback,
-        cacheable: () => {},
+        cacheable: jest.fn(),
+        addDependency: jest.fn(),
         resourcePath: require.resolve('./__example-files__/simple.preval.ts'),
       },
       ''
@@ -174,7 +179,8 @@ describe('loader', () => {
       {
         async: () => callback,
         resource: 'test-resource',
-        cacheable: () => {},
+        cacheable: jest.fn(),
+        addDependency: jest.fn(),
         resourcePath: require.resolve('./__example-files__/throws.preval.ts'),
       },
       ''

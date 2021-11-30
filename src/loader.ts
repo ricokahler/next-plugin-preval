@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import type webpack from 'webpack';
 import requireFromString from 'require-from-string';
 // @ts-expect-error
@@ -139,6 +140,15 @@ const loader = function (
   const callback = this.async();
 
   this.cacheable(false);
+
+  // TODO: add comment (this implementation will be refined later)
+  const depFileFilename = path.resolve(
+    __dirname,
+    '.next-plugin-preval-depfile'
+  );
+  fs.writeFileSync(depFileFilename, Math.random().toString());
+
+  this.addDependency(depFileFilename);
 
   if (!callback) {
     throw new PrevalError(
