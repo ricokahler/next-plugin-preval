@@ -76,6 +76,12 @@ export async function _prevalLoader(
     ] as const);
 
   register({
+    // this is used by `next/babel` preset to conditionally remove loaders.
+    // without it, it causes the dreaded `e.charCodeAt is not a function` error.
+    // see:
+    // - https://github.com/ricokahler/next-plugin-preval/issues/66
+    // - https://github.com/vercel/next.js/blob/37d11008250b3b87dfa4625cd228ac173d4d3563/packages/next/build/babel/preset.ts#L65
+    caller: { isServer: true },
     presets: ['next/babel', ['@babel/preset-env', { targets: 'node 12' }]],
     plugins: [
       // conditionally add
