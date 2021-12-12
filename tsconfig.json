@@ -11,6 +11,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./dist",
+    "isolatedModules": true,
     "paths": {
       "@/test-module": ["./src/__example-files__/test-module"],
       "next-plugin-preval": ["./src"]
