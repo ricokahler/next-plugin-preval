@@ -67,7 +67,10 @@ export async function _prevalLoader(
         resolvePath: (sourcePath: string, currentFile: string, opts: any) => {
           if (matchPath) {
             try {
-              return matchPath(sourcePath, readJson, fileExists, extensions);
+              const mat = matchPath(sourcePath, readJson, fileExists, extensions);
+              if (mat != null) return mat;
+
+              return defaultResolvePath(sourcePath, currentFile, opts);
             } catch {
               return defaultResolvePath(sourcePath, currentFile, opts);
             }
@@ -90,7 +93,7 @@ export async function _prevalLoader(
       // conditionally add
       ...(moduleResolver ? [moduleResolver] : []),
     ],
-    rootMode: 'upward-optional',
+    rootMode: 'root',
     // TODO: this line may cause performance issues, it makes babel compile
     // things `node_modules` however this is currently required for setups that
     // include the use of sym-linked deps as part of workspaces (both yarn and
