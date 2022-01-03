@@ -1,5 +1,5 @@
 interface NextPluginPrevalOptions {
-  // just a placeholder for now
+  tsConfigFile?: string;
 }
 
 interface WebpackConfig {
@@ -24,7 +24,7 @@ interface NextConfigValue {
 
 type NextConfig = NextConfigValue | ((...args: any[]) => NextConfigValue);
 
-function createNextPluginPreval(_options?: NextPluginPrevalOptions) {
+function createNextPluginPreval(pluginOption?: NextPluginPrevalOptions) {
   function withNextPluginPreval(_nextConfig?: NextConfig) {
     const normalizedNextConfig =
       typeof _nextConfig === 'function' ? _nextConfig : () => _nextConfig || {};
@@ -47,6 +47,7 @@ function createNextPluginPreval(_options?: NextPluginPrevalOptions) {
           rules.push({
             test: /\.preval\.(t|j)sx?$/,
             loader: require.resolve('./loader'),
+            options: pluginOption
           });
 
           return webpackConfig;

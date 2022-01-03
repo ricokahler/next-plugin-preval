@@ -13,9 +13,11 @@ class PrevalError extends Error {}
 
 interface PrevalLoaderOptions {
   extensions?: string[];
+  tsConfigFile?: string;
 }
 
 const defaultExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+const defaultTsConfigFile = "tsconfig.json";
 
 const isRecord = (something: unknown): something is Record<string, unknown> =>
   typeof something === 'object' && !!something && !Array.isArray(something);
@@ -41,9 +43,10 @@ export async function _prevalLoader(
   resource: string,
   options: PrevalLoaderOptions
 ) {
-  const { extensions = defaultExtensions } = options;
+  let { extensions = defaultExtensions, tsConfigFile } = options;
+  tsConfigFile = tsConfigFile ?? defaultTsConfigFile;
 
-  const configLoaderResult = loadConfig();
+  const configLoaderResult = loadConfig(tsConfigFile);
 
   const configLoaderSuccessResult =
     configLoaderResult.resultType === 'failed' ? null : configLoaderResult;
@@ -143,7 +146,7 @@ const loader = function (
   content: string
 ) {
   const callback = this.async();
-
+  const options = getOptions(this);
   this.cacheable(false);
 
   if (!callback) {
@@ -152,7 +155,7 @@ const loader = function (
     );
   }
 
-  _prevalLoader(content.toString(), this.resourcePath, getOptions(this))
+  _prevalLoader(content.toString(), this.resourcePath, options)
     .then((result) => {
       callback(null, result);
     })
