@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.js"],"names":["module","exports","x"],"mappings":";;AAAAA,MAAM,CAACC,OAAP,GAAiB,UAAUC,CAAV,EAAa;AAC5B,SAAOA,CAAP;AACD,CAFD","sourcesContent":["module.exports = function (x) {\n  return x;\n};\n"],"file":"index.js"}
