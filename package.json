@@ -40,7 +40,7 @@
     "webpack": "^5.56.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.25.9",
+    "@babel/cli": "7.26.4",
     "@babel/preset-typescript": "7.26.0",
     "@types/babel__core": "7.20.5",
     "@types/jest": "26.0.24",
