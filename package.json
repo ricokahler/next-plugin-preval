@@ -32,11 +32,11 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/register": "^7.13.16",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "loader-utils": "^2.0.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "loader-utils": "^3.0.0",
     "regenerator-runtime": "^0.14.0",
     "require-from-string": "^2.0.2",
-    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths": "^4.0.0",
     "webpack": "^5.56.0"
   },
   "devDependencies": {
@@ -49,19 +49,19 @@
     "@typescript-eslint/parser": "4.33.0",
     "@babel/eslint-parser": "7.26.8",
     "eslint": "7.32.0",
-    "eslint-config-react-app": "6.0.0",
-    "eslint-plugin-flowtype": "5.10.0",
+    "eslint-config-react-app": "7.0.1",
+    "eslint-plugin-flowtype": "8.0.3",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.4",
     "eslint-plugin-react-hooks": "4.6.2",
     "jest": "27.5.1",
     "next": "15.0.3",
-    "prettier": "2.8.8",
+    "prettier": "3.5.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "semantic-release": "17.4.7",
-    "typescript": "4.9.5"
+    "typescript": "5.8.2"
   },
   "peerDependencies": {
     "next": "^9 || ^10 || ^11 || ^12.0.0 || ^13 || ^14 || ^15.0.0"
