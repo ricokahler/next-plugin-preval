@@ -40,14 +40,14 @@
     "webpack": "^5.56.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.26.4",
-    "@babel/preset-typescript": "7.26.0",
+    "@babel/cli": "7.29.7",
+    "@babel/preset-typescript": "7.29.7",
     "@types/babel__core": "7.20.5",
     "@types/jest": "26.0.24",
     "@types/require-from-string": "1.2.3",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
-    "@babel/eslint-parser": "7.26.8",
+    "@babel/eslint-parser": "7.29.7",
     "eslint": "7.32.0",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-flowtype": "5.10.0",
